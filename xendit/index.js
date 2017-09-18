@@ -1,20 +1,20 @@
 const axios = require("axios");
 
-function get_Balance (secret_key){
+function get_Balance (secret_key, callback) {
     axios.get('https://api.xendit.co/balance', {
         auth: {
             username: secret_key
         }
     })
     .then((response) => {
-       console.log(response.data);
+        callback(response.data)
     })
     .catch(error => {
-        console.log(error.response.data)
+        callback(error.response.data)
     })
 }
 
-function create_Invoice (secret_key,_external_id,_email,_desc,_amount) {
+function create_Invoice (secret_key,_external_id,_email,_desc,_amount,callback) {
     axios({
         method: "post",
         url: "https://api.xendit.co/v2/invoices",
@@ -29,10 +29,10 @@ function create_Invoice (secret_key,_external_id,_email,_desc,_amount) {
         }
     })
     .then(response => {
-        console.log(response.data)
+        callback(response.data)
     })
     .catch(error => {
-        console.log(error.response.data);
+        callback(error.response.data);
     })
 }
 
